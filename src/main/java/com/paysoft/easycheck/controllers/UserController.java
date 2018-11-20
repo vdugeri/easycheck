@@ -1,5 +1,7 @@
 package com.paysoft.easycheck.controllers;
 
+import com.paysoft.easycheck.dtos.UserDTO;
+import com.paysoft.easycheck.mappers.UserMapper;
 import com.paysoft.easycheck.models.User;
 import com.paysoft.easycheck.services.UserService;
 import com.paysoft.easycheck.dtos.NotFound;
@@ -25,16 +27,16 @@ public class UserController {
     public Response index() {
         List<User> users = userService.findAll();
 
-        return Response.ok().entity(users).build();
+        return Response.ok().entity(UserMapper.mapTo(users)).build();
     }
 
     @POST
-    public Response store(User user) {
+    public Response store(UserDTO user) {
         User createdUser = userService.createUser(user);
 
         return Response
                 .status(Response.Status.CREATED)
-                .entity(createdUser)
+                .entity(UserMapper.mapTo(createdUser))
                 .build();
     }
 
@@ -44,7 +46,7 @@ public class UserController {
         Optional<User> user = userService.findOne(ID);
 
         if (user.isPresent()) {
-            return Response.ok().entity(user.get()).build();
+            return Response.ok().entity(UserMapper.mapTo(user.get())).build();
         }
 
         return Response
@@ -55,13 +57,13 @@ public class UserController {
 
     @PUT
     @Path("{id}")
-    public Response update(@PathParam("id") Long ID, User user) {
+    public Response update(@PathParam("id") Long ID, UserDTO user) {
         Optional<User> userOptional = userService.findOne(ID);
 
         if (userOptional.isPresent()) {
             User updatedUser = userService.update(user);
 
-            return Response.ok().entity(updatedUser).build();
+            return Response.ok().entity(UserMapper.mapTo(updatedUser)).build();
         }
 
         return Response

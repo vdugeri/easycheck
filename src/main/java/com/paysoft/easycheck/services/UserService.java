@@ -1,5 +1,7 @@
 package com.paysoft.easycheck.services;
 
+import com.paysoft.easycheck.dtos.UserDTO;
+import com.paysoft.easycheck.mappers.UserMapper;
 import com.paysoft.easycheck.models.User;
 import com.paysoft.easycheck.repositories.UserRepository;
 import com.paysoft.easycheck.utils.PasswordHash;
@@ -35,9 +37,9 @@ public class UserService {
      *
      * @return the created user
      */
-    public User createUser(User user) {
+    public User createUser(UserDTO user) {
         user.setPassword(new PasswordHash().hash(user.getPassword().toCharArray()));
-        return userRepository.create(user);
+        return userRepository.create(UserMapper.mapTo(user));
     }
 
     /**
@@ -57,8 +59,8 @@ public class UserService {
      * @param user User
      * @return found User
      */
-    public User update(User user) {
-        return userRepository.edit(user);
+    public User update(UserDTO user) {
+        return userRepository.edit(UserMapper.mapTo(user));
     }
 
     /**
