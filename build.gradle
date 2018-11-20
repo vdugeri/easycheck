@@ -38,6 +38,7 @@ dependencies {
     testCompile 'org.testng:testng:6.9.10'
     compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.26'
     compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.10.4'
+    compile group: 'org.eclipse.persistence', name: 'org.eclipse.persistence.jpa', version: '2.7.0'
     providedCompile 'javax:javaee-api:8.0'
     cargo 'org.glassfish.main.deployment:deployment-client:5.0'
     cargo 'org.codehaus.cargo:cargo-ant:1.6.8'
