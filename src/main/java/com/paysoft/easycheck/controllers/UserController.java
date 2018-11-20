@@ -47,6 +47,34 @@ public class UserController {
             return Response.ok().entity(user.get()).build();
         }
 
-        return Response.status(Response.Status.NOT_FOUND).entity(new NotFound("User not found")).build();
+        return Response
+                .status(Response.Status.NOT_FOUND)
+                .entity(new NotFound("User not found"))
+                .build();
+    }
+
+    @PUT
+    @Path("{id}")
+    public Response update(@PathParam("id") Long ID, User user) {
+        Optional<User> userOptional = userService.findOne(ID);
+
+        if (userOptional.isPresent()) {
+            User updatedUser = userService.update(user);
+
+            return Response.ok().entity(updatedUser).build();
+        }
+
+        return Response
+                .status(Response.Status.NOT_FOUND)
+                .entity(new NotFound("User not found"))
+                .build();
+    }
+
+    @DELETE
+    @Path("{id}")
+    public Response destroy(@PathParam("id") Long ID) {
+        userService.delete(ID);
+
+        return Response.ok().build();
     }
 }
