@@ -33,9 +33,9 @@ public class UserController {
             offset = 0;
         }
 
-        PaginatedResource<User> paginatedUsers = userService.findAll(limit, offset);
+        PaginatedResource<UserDTO> users = userService.findAll(limit, offset);
 
-        return Response.ok().entity(paginatedUsers).build();
+        return Response.ok().entity(users).build();
     }
 
     @POST

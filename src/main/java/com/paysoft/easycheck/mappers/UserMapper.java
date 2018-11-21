@@ -38,12 +38,12 @@ public class UserMapper {
         );
     }
 
-    public static List<UserDTO> mapTo(PaginatedResource<User> users) {
-        if (users.getData().isEmpty()) {
+    public static List<UserDTO> mapTo(List<User> users) {
+        if (users.isEmpty()) {
             return Collections.EMPTY_LIST;
         }
 
-        return users.getData().stream()
+        return users.stream()
             .map(user -> mapTo(user))
             .filter(user -> user != null)
             .collect(Collectors.toList());

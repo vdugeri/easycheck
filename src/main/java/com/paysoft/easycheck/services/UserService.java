@@ -28,7 +28,7 @@ public class UserService {
      *
      * @return List of users
      */
-    public PaginatedResource<User> findAll(Integer limit, Integer offset) {
+    public PaginatedResource<UserDTO> findAll(Integer limit, Integer offset) {
         int total = userRepository.count();
         List<User> users = userRepository.findWithLimitAndOffset(limit, offset);
 
@@ -41,9 +41,9 @@ public class UserService {
         metadata.setPerPage(limit);
         metadata.setTotal(total);
 
-        PaginatedResource<User> paginatedUsers = new PaginatedResource<>();
+        PaginatedResource<UserDTO> paginatedUsers = new PaginatedResource<>();
         paginatedUsers.setMeta(metadata);
-        paginatedUsers.setData(users);
+        paginatedUsers.setData(UserMapper.mapTo(users));
 
 
         return paginatedUsers;
