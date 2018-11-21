@@ -1,5 +1,6 @@
 package com.paysoft.easycheck.mappers;
 
+import com.paysoft.easycheck.utils.PaginatedResource;
 import com.paysoft.easycheck.dtos.UserDTO;
 import com.paysoft.easycheck.models.User;
 
@@ -37,12 +38,12 @@ public class UserMapper {
         );
     }
 
-    public static List<UserDTO> mapTo(List<User> users) {
-        if (users.isEmpty()) {
+    public static List<UserDTO> mapTo(PaginatedResource<User> users) {
+        if (users.getData().isEmpty()) {
             return Collections.EMPTY_LIST;
         }
 
-        return users.stream()
+        return users.getData().stream()
             .map(user -> mapTo(user))
             .filter(user -> user != null)
             .collect(Collectors.toList());

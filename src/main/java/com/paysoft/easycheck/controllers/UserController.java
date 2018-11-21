@@ -1,5 +1,6 @@
 package com.paysoft.easycheck.controllers;
 
+import com.paysoft.easycheck.utils.PaginatedResource;
 import com.paysoft.easycheck.dtos.UserDTO;
 import com.paysoft.easycheck.mappers.UserMapper;
 import com.paysoft.easycheck.models.User;
@@ -11,7 +12,6 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 import java.util.Optional;
 
 @Stateless
@@ -24,10 +24,18 @@ public class UserController {
     private UserService userService;
 
     @GET
-    public Response index() {
-        List<User> users = userService.findAll();
+    public Response index(@QueryParam("limit") Integer limit, @QueryParam("offset") Integer offset) {
+        if (limit == null) {
+            limit = 50;
+        }
 
-        return Response.ok().entity(UserMapper.mapTo(users)).build();
+        if (offset == null) {
+            offset = 0;
+        }
+
+        PaginatedResource<User> paginatedUsers = userService.findAll(limit, offset);
+
+        return Response.ok().entity(paginatedUsers).build();
     }
 
     @POST

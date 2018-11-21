@@ -1,9 +1,11 @@
 package com.paysoft.easycheck.services;
 
+import com.paysoft.easycheck.utils.PaginatedResource;
 import com.paysoft.easycheck.dtos.UserDTO;
 import com.paysoft.easycheck.mappers.UserMapper;
 import com.paysoft.easycheck.models.User;
 import com.paysoft.easycheck.repositories.UserRepository;
+import com.paysoft.easycheck.utils.PaginationMetadata;
 import com.paysoft.easycheck.utils.PasswordHash;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -26,8 +28,25 @@ public class UserService {
      *
      * @return List of users
      */
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public PaginatedResource<User> findAll(Integer limit, Integer offset) {
+        int total = userRepository.count();
+        List<User> users = userRepository.findWithLimitAndOffset(limit, offset);
+
+        int pages = (int) Math.ceil(total / limit) + 1;
+        int currPage = (int) Math.floor(offset / limit) + 1;
+
+        PaginationMetadata metadata = new PaginationMetadata();
+        metadata.setCurrPage(currPage);
+        metadata.setPages(pages);
+        metadata.setPerPage(limit);
+        metadata.setTotal(total);
+
+        PaginatedResource<User> paginatedUsers = new PaginatedResource<>();
+        paginatedUsers.setMeta(metadata);
+        paginatedUsers.setData(users);
+
+
+        return paginatedUsers;
     }
 
     /**
