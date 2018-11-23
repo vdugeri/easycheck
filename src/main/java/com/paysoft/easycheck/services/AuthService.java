@@ -42,7 +42,7 @@ public class AuthService {
 
     public UserToken generateToken(UserLogin userLogin) {
         Map<String, Object> params = new HashMap<>();
-        params.put("username", userLogin.getEmail());
+        params.put("email", userLogin.getEmail());
 
         List<User> userList = userRepository.findWithNamedQuery(User.FIND_BY_EMAIL, params, 1);
 

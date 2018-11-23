@@ -9,11 +9,15 @@ import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.paysoft.easycheck.models.User;
 
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+@Stateless
+@LocalBean
 public class TokenGenerator {
 
     public String generateToken(User user) {
