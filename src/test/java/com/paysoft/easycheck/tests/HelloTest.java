@@ -12,8 +12,6 @@ import org.testng.annotations.Test;
 
 public class HelloTest extends Arquillian {
 
-
-
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
