@@ -45,7 +45,6 @@ dependencies {
     cargo 'org.codehaus.cargo:cargo-ant:1.6.8'
 }
 
-// Configure Cargo Plugin
 cargo {
     // Configures which commands require a built artifact
     cargoRunLocal.dependsOn war

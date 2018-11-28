@@ -6,7 +6,6 @@ import com.paysoft.easycheck.mappers.UserMapper;
 import com.paysoft.easycheck.models.User;
 import com.paysoft.easycheck.services.UserService;
 import com.paysoft.easycheck.dtos.NotFound;
-
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.*;
