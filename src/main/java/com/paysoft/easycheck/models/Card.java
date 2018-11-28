@@ -2,6 +2,7 @@ package com.paysoft.easycheck.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "cards")
@@ -17,6 +18,9 @@ public class Card implements Serializable {
 
     @Column(name = "token")
     private String token;
+
+    @Column(name = "blocked")
+    private boolean blocked;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -54,13 +58,38 @@ public class Card implements Serializable {
         this.user = user;
     }
 
+    public boolean isBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        this.blocked = blocked;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Card)) return false;
+        Card card = (Card) o;
+        return isBlocked() == card.isBlocked() &&
+            Objects.equals(getID(), card.getID()) &&
+            Objects.equals(getLastFour(), card.getLastFour()) &&
+            Objects.equals(getToken(), card.getToken());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getID(), getLastFour(), getToken(), isBlocked());
+    }
+
     @Override
     public String toString() {
         return "Card{" +
             "ID=" + ID +
             ", lastFour='" + lastFour + '\'' +
             ", token='" + token + '\'' +
-            ", user=" + user +
+            ", user=" + user + '\'' +
+            ", blocked=" + blocked +
             '}';
     }
 }

@@ -10,6 +10,7 @@ public class CardDTO {
     private String token;
     @JsonProperty("user_id")
     private Long userId;
+    private boolean blocked;
 
     public Long getID() {
         return ID;
@@ -43,13 +44,22 @@ public class CardDTO {
         this.userId = userId;
     }
 
+    public boolean isBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        this.blocked = blocked;
+    }
+
     @Override
     public String toString() {
         return "CardDTO{" +
             "ID=" + ID +
             ", lastFour='" + lastFour + '\'' +
             ", token='" + token + '\'' +
-            ", userId=" + userId +
+            ", userId=" + userId + '\'' +
+            ", blocked=" + blocked +
             '}';
     }
 }

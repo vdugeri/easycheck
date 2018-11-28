@@ -20,6 +20,7 @@ public class CardMapper {
         cardDTO.setLastFour(card.getLastFour());
         cardDTO.setToken(card.getToken());
         cardDTO.setUserId(card.getUser().getID());
+        cardDTO.setBlocked(card.isBlocked());
 
         return cardDTO;
     }
@@ -33,6 +34,7 @@ public class CardMapper {
         card.setLastFour(cardDTO.getLastFour());
         card.setToken(cardDTO.getToken());
         card.setUser(user);
+        card.setBlocked(cardDTO.isBlocked());
 
         return card;
     }
