@@ -1,0 +1,82 @@
+package com.paysoft.easycheck.models;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
+
+@Entity
+@Table(name = "merchants")
+public class Merchant  implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long ID;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "verified")
+    private boolean verified;
+
+    public Long getID() {
+        return ID;
+    }
+
+    public void setID(Long ID) {
+        this.ID = ID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Merchant)) return false;
+        Merchant merchant = (Merchant) o;
+        return isVerified() == merchant.isVerified() &&
+            Objects.equals(getID(), merchant.getID()) &&
+            Objects.equals(getName(), merchant.getName()) &&
+            Objects.equals(getAddress(), merchant.getAddress());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getID(), getName(), getAddress(), isVerified());
+    }
+
+    @Override
+    public String toString() {
+        return "Merchant{" +
+            "ID=" + ID +
+            ", name='" + name + '\'' +
+            ", address='" + address + '\'' +
+            ", verified=" + verified +
+            '}';
+    }
+}
