@@ -22,7 +22,7 @@ public class CardService {
     private CardRepository cardRepository;
 
     @Inject
-    private CustomerService userService;
+    private CustomerService customerService;
 
     /**
      * @author Verem Dugeri <verem.dugeri@gmail.com>
@@ -76,7 +76,7 @@ public class CardService {
      * @return list of {@link Card}
      */
     public List<CardDTO> getUserCards(Long userID) {
-        Optional<Customer> user = userService.findOne(userID);
+        Optional<Customer> user = customerService.findOne(userID);
 
         if(user.isPresent()) {
             return CardMapper.mapTo(user.get().getCards());

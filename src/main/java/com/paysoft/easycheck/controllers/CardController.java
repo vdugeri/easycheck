@@ -62,4 +62,13 @@ public class CardController {
 
         return Response.ok().entity(cards).build();
     }
+
+
+    @DELETE
+    @Path("{card_id}")
+    public Response destroy(@PathParam("card_id") Long cardID) {
+        cardService.remove(cardID);
+
+        return Response.ok().build();
+    }
 }
