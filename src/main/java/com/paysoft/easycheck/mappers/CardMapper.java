@@ -19,7 +19,7 @@ public class CardMapper {
         cardDTO.setID(card.getID());
         cardDTO.setLastFour(card.getLastFour());
         cardDTO.setToken(card.getToken());
-        cardDTO.setUserId(card.getCustomer().getID());
+        cardDTO.setCustomerID(card.getCustomer().getID());
         cardDTO.setBlocked(card.isBlocked());
 
         return cardDTO;

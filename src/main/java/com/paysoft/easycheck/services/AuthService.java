@@ -20,7 +20,7 @@ import java.util.Map;
 public class AuthService {
 
     @Inject
-    private CustomerRepository userRepository;
+    private CustomerRepository customerRepository;
 
     @Inject
     private TokenGenerator tokenGenerator;
@@ -29,7 +29,7 @@ public class AuthService {
         Map<String, Object> params = new HashMap<>();
         params.put("email", userLogin.getEmail());
 
-        List<Customer> customerList = userRepository.findWithNamedQuery(Customer.FIND_BY_EMAIL, params, 1);
+        List<Customer> customerList = customerRepository.findWithNamedQuery(Customer.FIND_BY_EMAIL, params, 1);
 
         if (customerList.isEmpty()) {
             return false;
@@ -44,7 +44,7 @@ public class AuthService {
         Map<String, Object> params = new HashMap<>();
         params.put("email", userLogin.getEmail());
 
-        List<Customer> customerList = userRepository.findWithNamedQuery(Customer.FIND_BY_EMAIL, params, 1);
+        List<Customer> customerList = customerRepository.findWithNamedQuery(Customer.FIND_BY_EMAIL, params, 1);
 
         Customer customer = customerList.get(0);
 

@@ -27,7 +27,7 @@ public class CardController {
     CardService cardService;
 
     @Inject
-    CustomerService userService;
+    CustomerService customerService;
 
     @GET
     public Response index(@DefaultValue("50")@QueryParam("limit") int limit, @DefaultValue("0")@QueryParam("offset") int offset) {
@@ -38,13 +38,13 @@ public class CardController {
 
     @POST
     public Response store(CardDTO cardDTO) {
-        Optional<Customer> user = userService.findOne(cardDTO.getUserId());
+        Optional<Customer> customer = customerService.findOne(cardDTO.getCustomerID());
 
-        if (!user.isPresent()) {
-            throw new EntityNotFoundException("Customer with id " + cardDTO.getUserId() + " is not found");
+        if (!customer.isPresent()) {
+            throw new EntityNotFoundException("Customer with id " + cardDTO.getCustomerID() + " is not found");
         }
 
-        CardDTO card = cardService.save(cardDTO, user.get());
+        CardDTO card = cardService.save(cardDTO, customer.get());
 
         return Response.status(Response.Status.CREATED).entity(card).build();
     }
@@ -52,7 +52,7 @@ public class CardController {
     @GET
     @Path("{user_id}")
     public Response getUserCards(@PathParam("user_id") Long userID) {
-        Optional<Customer> user = userService.findOne(userID);
+        Optional<Customer> user = customerService.findOne(userID);
 
         if (!user.isPresent()) {
             throw new EntityNotFoundException("Customer with id " + userID + " is not found");
