@@ -1,6 +1,6 @@
 package com.paysoft.easycheck.repositories;
 
-import com.paysoft.easycheck.models.User;
+import com.paysoft.easycheck.models.Customer;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -9,13 +9,13 @@ import javax.persistence.PersistenceContext;
 
 @Stateless
 @LocalBean
-public class UserRepository extends AbstractRepository<User> {
+public class CustomerRepository extends AbstractRepository<Customer> {
 
     @PersistenceContext(unitName = "easyCheckPU")
     private EntityManager entityManager;
 
-    public UserRepository() {
-        super(User.class);
+    public CustomerRepository() {
+        super(Customer.class);
     }
 
     @Override

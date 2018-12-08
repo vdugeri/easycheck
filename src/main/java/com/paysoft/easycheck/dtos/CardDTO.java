@@ -8,8 +8,8 @@ public class CardDTO {
     @JsonProperty("last_four")
     private String lastFour;
     private String token;
-    @JsonProperty("user_id")
-    private Long userId;
+    @JsonProperty("customer_id")
+    private Long customerID;
     private boolean blocked;
 
     public Long getID() {
@@ -36,12 +36,12 @@ public class CardDTO {
         this.token = token;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getCustomerID() {
+        return customerID;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setCustomerID(Long customerID) {
+        this.customerID = customerID;
     }
 
     public boolean isBlocked() {
@@ -58,7 +58,7 @@ public class CardDTO {
             "ID=" + ID +
             ", lastFour='" + lastFour + '\'' +
             ", token='" + token + '\'' +
-            ", userId=" + userId + '\'' +
+            ", customerID=" + customerID + '\'' +
             ", blocked=" + blocked +
             '}';
     }

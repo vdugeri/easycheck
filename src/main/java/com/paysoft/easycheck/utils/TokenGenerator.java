@@ -7,7 +7,7 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.paysoft.easycheck.models.User;
+import com.paysoft.easycheck.models.Customer;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -20,17 +20,17 @@ import java.util.Map;
 @LocalBean
 public class TokenGenerator {
 
-    public String generateToken(User user) {
-        return createAndSignToken(user);
+    public String generateToken(Customer customer) {
+        return createAndSignToken(customer);
     }
 
     protected Algorithm getAlgorithm() {
         return Algorithm.HMAC256("secret");
     }
 
-    protected String createAndSignToken(User user) {
+    protected String createAndSignToken(Customer customer) {
         Map<String, Object> headerClaims = new HashMap<>();
-        headerClaims.put("user", user);
+        headerClaims.put("customer", customer);
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_YEAR, 365 * 5);
@@ -39,7 +39,7 @@ public class TokenGenerator {
         return JWT.create()
             .withIssuer("stores-app")
             .withHeader(headerClaims)
-            .withSubject(user.getEmail())
+            .withSubject(customer.getEmail())
             .withExpiresAt(expiresAt)
             .sign(getAlgorithm());
     }
@@ -58,9 +58,9 @@ public class TokenGenerator {
         return JWT.decode(token);
     }
 
-    protected User getUserFromToken(DecodedJWT jwt) {
+    protected Customer getUserFromToken(DecodedJWT jwt) {
         Claim claim = jwt.getHeaderClaim("user");
 
-        return claim.as(User.class);
+        return claim.as(Customer.class);
     }
 }

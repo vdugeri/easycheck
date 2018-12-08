@@ -2,7 +2,7 @@ package com.paysoft.easycheck.mappers;
 
 import com.paysoft.easycheck.dtos.CardDTO;
 import com.paysoft.easycheck.models.Card;
-import com.paysoft.easycheck.models.User;
+import com.paysoft.easycheck.models.Customer;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,13 +19,13 @@ public class CardMapper {
         cardDTO.setID(card.getID());
         cardDTO.setLastFour(card.getLastFour());
         cardDTO.setToken(card.getToken());
-        cardDTO.setUserId(card.getUser().getID());
+        cardDTO.setCustomerID(card.getCustomer().getID());
         cardDTO.setBlocked(card.isBlocked());
 
         return cardDTO;
     }
 
-    public static Card mapTo(CardDTO cardDTO, User user) {
+    public static Card mapTo(CardDTO cardDTO, Customer customer) {
         if (cardDTO == null) {
             return null;
         }
@@ -33,7 +33,7 @@ public class CardMapper {
         Card card = new Card();
         card.setLastFour(cardDTO.getLastFour());
         card.setToken(cardDTO.getToken());
-        card.setUser(user);
+        card.setCustomer(customer);
         card.setBlocked(cardDTO.isBlocked());
 
         return card;

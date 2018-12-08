@@ -1,16 +1,15 @@
 package com.paysoft.easycheck.controllers;
 
 import com.paysoft.easycheck.dtos.CardDTO;
-import com.paysoft.easycheck.models.User;
+import com.paysoft.easycheck.models.Customer;
 import com.paysoft.easycheck.services.CardService;
-import com.paysoft.easycheck.services.UserService;
+import com.paysoft.easycheck.services.CustomerService;
 import com.paysoft.easycheck.utils.PaginatedResource;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
-import javax.swing.text.html.Option;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -28,7 +27,7 @@ public class CardController {
     CardService cardService;
 
     @Inject
-    UserService userService;
+    CustomerService customerService;
 
     @GET
     public Response index(@DefaultValue("50")@QueryParam("limit") int limit, @DefaultValue("0")@QueryParam("offset") int offset) {
@@ -39,13 +38,13 @@ public class CardController {
 
     @POST
     public Response store(CardDTO cardDTO) {
-        Optional<User> user = userService.findOne(cardDTO.getUserId());
+        Optional<Customer> customer = customerService.findOne(cardDTO.getCustomerID());
 
-        if (!user.isPresent()) {
-            throw new EntityNotFoundException("User with id " + cardDTO.getUserId() + " is not found");
+        if (!customer.isPresent()) {
+            throw new EntityNotFoundException("Customer with id " + cardDTO.getCustomerID() + " is not found");
         }
 
-        CardDTO card = cardService.save(cardDTO, user.get());
+        CardDTO card = cardService.save(cardDTO, customer.get());
 
         return Response.status(Response.Status.CREATED).entity(card).build();
     }
@@ -53,14 +52,23 @@ public class CardController {
     @GET
     @Path("{user_id}")
     public Response getUserCards(@PathParam("user_id") Long userID) {
-        Optional<User> user = userService.findOne(userID);
+        Optional<Customer> user = customerService.findOne(userID);
 
         if (!user.isPresent()) {
-            throw new EntityNotFoundException("User with id " + userID + " is not found");
+            throw new EntityNotFoundException("Customer with id " + userID + " is not found");
         }
 
         List<CardDTO> cards = cardService.getUserCards(user.get().getID());
 
         return Response.ok().entity(cards).build();
+    }
+
+
+    @DELETE
+    @Path("{card_id}")
+    public Response destroy(@PathParam("card_id") Long cardID) {
+        cardService.remove(cardID);
+
+        return Response.ok().build();
     }
 }

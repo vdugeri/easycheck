@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "users")
+@Table(name = "customers")
 @NamedQueries({
-    @NamedQuery(name = User.FIND_BY_EMAIL, query = "SELECT u FROM User  u WHERE u.email = :email")
+    @NamedQuery(name = Customer.FIND_BY_EMAIL, query = "SELECT c FROM Customer  c WHERE c.email = :email")
 })
-public class User {
+public class Customer {
 
-    public static final String FIND_BY_EMAIL = "User.findByEmail";
+    public static final String FIND_BY_EMAIL = "Customer.findByEmail";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "customer")
     private List<Card> cards;
 
 
@@ -85,13 +85,13 @@ public class User {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return Objects.equals(getID(), user.getID()) &&
-                Objects.equals(getFirstName(), user.getFirstName()) &&
-                Objects.equals(getLastName(), user.getLastName()) &&
-                Objects.equals(getEmail(), user.getEmail()) &&
-                Objects.equals(getPassword(), user.getPassword());
+        if (!(o instanceof Customer)) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(getID(), customer.getID()) &&
+                Objects.equals(getFirstName(), customer.getFirstName()) &&
+                Objects.equals(getLastName(), customer.getLastName()) &&
+                Objects.equals(getEmail(), customer.getEmail()) &&
+                Objects.equals(getPassword(), customer.getPassword());
     }
 
     @Override
@@ -101,7 +101,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Customer{" +
                 "ID=" + ID +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

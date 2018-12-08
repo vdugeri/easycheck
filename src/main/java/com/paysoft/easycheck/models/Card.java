@@ -23,8 +23,8 @@ public class Card implements Serializable {
     private boolean blocked;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
     public Long getID() {
         return ID;
@@ -50,12 +50,12 @@ public class Card implements Serializable {
         this.token = token;
     }
 
-    public User getUser() {
-        return user;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public boolean isBlocked() {
@@ -88,7 +88,7 @@ public class Card implements Serializable {
             "ID=" + ID +
             ", lastFour='" + lastFour + '\'' +
             ", token='" + token + '\'' +
-            ", user=" + user + '\'' +
+            ", customer=" + customer + '\'' +
             ", blocked=" + blocked +
             '}';
     }
