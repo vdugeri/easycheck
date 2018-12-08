@@ -2,7 +2,7 @@ package com.paysoft.easycheck.services;
 
 import com.paysoft.easycheck.helpers.UserLogin;
 import com.paysoft.easycheck.helpers.UserToken;
-import com.paysoft.easycheck.mappers.UserMapper;
+import com.paysoft.easycheck.mappers.CustomerMapper;
 import com.paysoft.easycheck.models.Customer;
 import com.paysoft.easycheck.repositories.UserRepository;
 import com.paysoft.easycheck.utils.PasswordHash;
@@ -50,6 +50,6 @@ public class AuthService {
 
         String token = tokenGenerator.generateToken(customer);
 
-        return new UserToken().setToken(token).setUser(UserMapper.mapTo(customer));
+        return new UserToken().setToken(token).setUser(CustomerMapper.mapTo(customer));
     }
 }

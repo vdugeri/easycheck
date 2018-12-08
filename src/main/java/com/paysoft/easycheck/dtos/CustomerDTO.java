@@ -2,14 +2,14 @@ package com.paysoft.easycheck.dtos;
 
 import java.util.Objects;
 
-public class UserDTO {
+public class CustomerDTO {
 
     private String firstName;
     private String lastName;
     private String email;
     private String password;
 
-    public UserDTO(String firstName, String lastName, String email, String password) {
+    public CustomerDTO(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -51,12 +51,12 @@ public class UserDTO {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof UserDTO)) return false;
-        UserDTO userDTO = (UserDTO) o;
-        return Objects.equals(getFirstName(), userDTO.getFirstName()) &&
-                Objects.equals(getLastName(), userDTO.getLastName()) &&
-                Objects.equals(getEmail(), userDTO.getEmail()) &&
-                Objects.equals(getPassword(), userDTO.getPassword());
+        if (!(o instanceof CustomerDTO)) return false;
+        CustomerDTO customerDTO = (CustomerDTO) o;
+        return Objects.equals(getFirstName(), customerDTO.getFirstName()) &&
+                Objects.equals(getLastName(), customerDTO.getLastName()) &&
+                Objects.equals(getEmail(), customerDTO.getEmail()) &&
+                Objects.equals(getPassword(), customerDTO.getPassword());
     }
 
     @Override
@@ -66,7 +66,7 @@ public class UserDTO {
 
     @Override
     public String toString() {
-        return "UserDTO{" +
+        return "CustomerDTO{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +

@@ -1,35 +1,35 @@
 package com.paysoft.easycheck.mappers;
 
+import com.paysoft.easycheck.dtos.CustomerDTO;
 import com.paysoft.easycheck.models.Customer;
-import com.paysoft.easycheck.dtos.UserDTO;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UserMapper {
+public class CustomerMapper {
 
-    public static Customer mapTo(UserDTO userDTO) {
-        if (userDTO == null) {
+    public static Customer mapTo(CustomerDTO customerDTO) {
+        if (customerDTO == null) {
             return null;
         }
 
         Customer customer = new Customer();
-        customer.setEmail(userDTO.getEmail());
-        customer.setPassword(userDTO.getPassword());
-        customer.setFirstName(userDTO.getFirstName());
-        customer.setLastName(userDTO.getLastName());
+        customer.setEmail(customerDTO.getEmail());
+        customer.setPassword(customerDTO.getPassword());
+        customer.setFirstName(customerDTO.getFirstName());
+        customer.setLastName(customerDTO.getLastName());
 
         return customer;
     }
 
 
-    public static UserDTO mapTo(Customer customer) {
+    public static CustomerDTO mapTo(Customer customer) {
         if (customer == null) {
             return null;
         }
 
-        return new UserDTO(
+        return new CustomerDTO(
             customer.getFirstName(),
             customer.getLastName(),
             customer.getEmail(),
@@ -37,7 +37,7 @@ public class UserMapper {
         );
     }
 
-    public static List<UserDTO> mapTo(List<Customer> customers) {
+    public static List<CustomerDTO> mapTo(List<Customer> customers) {
         if (customers.isEmpty()) {
             return Collections.EMPTY_LIST;
         }

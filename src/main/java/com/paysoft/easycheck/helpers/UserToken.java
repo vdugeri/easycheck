@@ -1,11 +1,11 @@
 package com.paysoft.easycheck.helpers;
 
-import com.paysoft.easycheck.dtos.UserDTO;
+import com.paysoft.easycheck.dtos.CustomerDTO;
 
 public class UserToken {
 
     private String token;
-    private UserDTO user;
+    private CustomerDTO user;
 
     public String getToken() {
         return token;
@@ -17,11 +17,11 @@ public class UserToken {
         return this;
     }
 
-    public UserDTO getUser() {
+    public CustomerDTO getUser() {
         return user;
     }
 
-    public UserToken setUser(UserDTO user) {
+    public UserToken setUser(CustomerDTO user) {
         this.user = user;
 
         return this;

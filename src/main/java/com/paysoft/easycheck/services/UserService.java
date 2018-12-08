@@ -1,9 +1,9 @@
 package com.paysoft.easycheck.services;
 
+import com.paysoft.easycheck.dtos.CustomerDTO;
 import com.paysoft.easycheck.models.Customer;
 import com.paysoft.easycheck.utils.PaginatedResource;
-import com.paysoft.easycheck.dtos.UserDTO;
-import com.paysoft.easycheck.mappers.UserMapper;
+import com.paysoft.easycheck.mappers.CustomerMapper;
 import com.paysoft.easycheck.repositories.UserRepository;
 import com.paysoft.easycheck.utils.PaginationMetadata;
 import com.paysoft.easycheck.utils.PasswordHash;
@@ -28,7 +28,7 @@ public class UserService {
      *
      * @return List of users
      */
-    public PaginatedResource<UserDTO> findAll(Integer limit, Integer offset) {
+    public PaginatedResource<CustomerDTO> findAll(Integer limit, Integer offset) {
         int total = userRepository.count();
         List<Customer> customers = userRepository.findWithLimitAndOffset(limit, offset);
 
@@ -41,9 +41,9 @@ public class UserService {
         metadata.setPerPage(limit);
         metadata.setTotal(total);
 
-        PaginatedResource<UserDTO> paginatedUsers = new PaginatedResource<>();
+        PaginatedResource<CustomerDTO> paginatedUsers = new PaginatedResource<>();
         paginatedUsers.setMeta(metadata);
-        paginatedUsers.setData(UserMapper.mapTo(customers));
+        paginatedUsers.setData(CustomerMapper.mapTo(customers));
 
 
         return paginatedUsers;
@@ -56,9 +56,9 @@ public class UserService {
      *
      * @return the created user
      */
-    public Customer createUser(UserDTO user) {
+    public Customer createUser(CustomerDTO user) {
         user.setPassword(new PasswordHash().hash(user.getPassword().toCharArray()));
-        return userRepository.create(UserMapper.mapTo(user));
+        return userRepository.create(CustomerMapper.mapTo(user));
     }
 
     /**
@@ -78,8 +78,8 @@ public class UserService {
      * @param user Customer
      * @return found Customer
      */
-    public Customer update(UserDTO user) {
-        return userRepository.edit(UserMapper.mapTo(user));
+    public Customer update(CustomerDTO user) {
+        return userRepository.edit(CustomerMapper.mapTo(user));
     }
 
     /**
