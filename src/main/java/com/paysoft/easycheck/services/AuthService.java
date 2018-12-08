@@ -4,7 +4,7 @@ import com.paysoft.easycheck.helpers.UserLogin;
 import com.paysoft.easycheck.helpers.UserToken;
 import com.paysoft.easycheck.mappers.CustomerMapper;
 import com.paysoft.easycheck.models.Customer;
-import com.paysoft.easycheck.repositories.UserRepository;
+import com.paysoft.easycheck.repositories.CustomerRepository;
 import com.paysoft.easycheck.utils.PasswordHash;
 import com.paysoft.easycheck.utils.TokenGenerator;
 
@@ -20,7 +20,7 @@ import java.util.Map;
 public class AuthService {
 
     @Inject
-    private UserRepository userRepository;
+    private CustomerRepository userRepository;
 
     @Inject
     private TokenGenerator tokenGenerator;

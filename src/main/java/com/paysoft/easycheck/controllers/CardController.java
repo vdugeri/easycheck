@@ -3,7 +3,7 @@ package com.paysoft.easycheck.controllers;
 import com.paysoft.easycheck.dtos.CardDTO;
 import com.paysoft.easycheck.models.Customer;
 import com.paysoft.easycheck.services.CardService;
-import com.paysoft.easycheck.services.UserService;
+import com.paysoft.easycheck.services.CustomerService;
 import com.paysoft.easycheck.utils.PaginatedResource;
 
 import javax.ejb.LocalBean;
@@ -27,7 +27,7 @@ public class CardController {
     CardService cardService;
 
     @Inject
-    UserService userService;
+    CustomerService userService;
 
     @GET
     public Response index(@DefaultValue("50")@QueryParam("limit") int limit, @DefaultValue("0")@QueryParam("offset") int offset) {

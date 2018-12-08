@@ -9,12 +9,12 @@ import javax.persistence.PersistenceContext;
 
 @Stateless
 @LocalBean
-public class UserRepository extends AbstractRepository<Customer> {
+public class CustomerRepository extends AbstractRepository<Customer> {
 
     @PersistenceContext(unitName = "easyCheckPU")
     private EntityManager entityManager;
 
-    public UserRepository() {
+    public CustomerRepository() {
         super(Customer.class);
     }
 

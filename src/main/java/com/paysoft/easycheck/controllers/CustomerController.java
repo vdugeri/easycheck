@@ -4,7 +4,7 @@ import com.paysoft.easycheck.utils.PaginatedResource;
 import com.paysoft.easycheck.dtos.CustomerDTO;
 import com.paysoft.easycheck.mappers.CustomerMapper;
 import com.paysoft.easycheck.models.Customer;
-import com.paysoft.easycheck.services.UserService;
+import com.paysoft.easycheck.services.CustomerService;
 import com.paysoft.easycheck.dtos.NotFound;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -17,10 +17,10 @@ import java.util.Optional;
 @Path("/users/")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class UserController {
+public class CustomerController {
 
     @Inject
-    private UserService userService;
+    private CustomerService customerService;
 
     @GET
     public Response index(@QueryParam("limit") Integer limit, @QueryParam("offset") Integer offset) {
@@ -32,14 +32,14 @@ public class UserController {
             offset = 0;
         }
 
-        PaginatedResource<CustomerDTO> users = userService.findAll(limit, offset);
+        PaginatedResource<CustomerDTO> users = customerService.findAll(limit, offset);
 
         return Response.ok().entity(users).build();
     }
 
     @POST
     public Response store(CustomerDTO user) {
-        Customer createdCustomer = userService.createUser(user);
+        Customer createdCustomer = customerService.createUser(user);
 
         return Response
                 .status(Response.Status.CREATED)
@@ -50,7 +50,7 @@ public class UserController {
     @GET
     @Path("{id}")
     public Response find(@PathParam("id") Long ID) {
-        Optional<Customer> user = userService.findOne(ID);
+        Optional<Customer> user = customerService.findOne(ID);
 
         if (user.isPresent()) {
             return Response.ok().entity(CustomerMapper.mapTo(user.get())).build();
@@ -65,10 +65,10 @@ public class UserController {
     @PUT
     @Path("{id}")
     public Response update(@PathParam("id") Long ID, CustomerDTO user) {
-        Optional<Customer> userOptional = userService.findOne(ID);
+        Optional<Customer> userOptional = customerService.findOne(ID);
 
         if (userOptional.isPresent()) {
-            Customer updatedCustomer = userService.update(user);
+            Customer updatedCustomer = customerService.update(user);
 
             return Response.ok().entity(CustomerMapper.mapTo(updatedCustomer)).build();
         }
@@ -82,7 +82,7 @@ public class UserController {
     @DELETE
     @Path("{id}")
     public Response destroy(@PathParam("id") Long ID) {
-        userService.delete(ID);
+        customerService.delete(ID);
 
         return Response.ok().build();
     }

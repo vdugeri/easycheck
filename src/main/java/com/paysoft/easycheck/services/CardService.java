@@ -22,7 +22,7 @@ public class CardService {
     private CardRepository cardRepository;
 
     @Inject
-    private UserService userService;
+    private CustomerService userService;
 
     /**
      * @author Verem Dugeri <verem.dugeri@gmail.com>

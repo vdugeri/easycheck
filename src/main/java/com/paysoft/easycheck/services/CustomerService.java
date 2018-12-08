@@ -4,7 +4,7 @@ import com.paysoft.easycheck.dtos.CustomerDTO;
 import com.paysoft.easycheck.models.Customer;
 import com.paysoft.easycheck.utils.PaginatedResource;
 import com.paysoft.easycheck.mappers.CustomerMapper;
-import com.paysoft.easycheck.repositories.UserRepository;
+import com.paysoft.easycheck.repositories.CustomerRepository;
 import com.paysoft.easycheck.utils.PaginationMetadata;
 import com.paysoft.easycheck.utils.PasswordHash;
 import javax.ejb.LocalBean;
@@ -18,10 +18,10 @@ import java.util.Optional;
  */
 @Stateless
 @LocalBean
-public class UserService {
+public class CustomerService {
 
     @Inject
-    private UserRepository userRepository;
+    private CustomerRepository customerRepository;
 
     /**
      * @author Verem Dugeri <verem.dugeri@gmail.com>
@@ -29,8 +29,8 @@ public class UserService {
      * @return List of users
      */
     public PaginatedResource<CustomerDTO> findAll(Integer limit, Integer offset) {
-        int total = userRepository.count();
-        List<Customer> customers = userRepository.findWithLimitAndOffset(limit, offset);
+        int total = customerRepository.count();
+        List<Customer> customers = customerRepository.findWithLimitAndOffset(limit, offset);
 
         int pages = (int) Math.ceil(total / limit) + 1;
         int currPage = (int) Math.floor(offset / limit) + 1;
@@ -58,7 +58,7 @@ public class UserService {
      */
     public Customer createUser(CustomerDTO user) {
         user.setPassword(new PasswordHash().hash(user.getPassword().toCharArray()));
-        return userRepository.create(CustomerMapper.mapTo(user));
+        return customerRepository.create(CustomerMapper.mapTo(user));
     }
 
     /**
@@ -69,7 +69,7 @@ public class UserService {
      * @return Optional of Customer
      */
     public Optional<Customer> findOne(Long ID) {
-        return Optional.ofNullable(userRepository.find(ID));
+        return Optional.ofNullable(customerRepository.find(ID));
     }
 
     /**
@@ -79,7 +79,7 @@ public class UserService {
      * @return found Customer
      */
     public Customer update(CustomerDTO user) {
-        return userRepository.edit(CustomerMapper.mapTo(user));
+        return customerRepository.edit(CustomerMapper.mapTo(user));
     }
 
     /**
@@ -88,6 +88,6 @@ public class UserService {
      * @param ID Long
      */
     public void delete(Long ID) {
-        userRepository.delete(ID);
+        customerRepository.delete(ID);
     }
 }
