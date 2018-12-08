@@ -1,8 +1,7 @@
 package com.paysoft.easycheck.mappers;
 
-import com.paysoft.easycheck.utils.PaginatedResource;
+import com.paysoft.easycheck.models.Customer;
 import com.paysoft.easycheck.dtos.UserDTO;
-import com.paysoft.easycheck.models.User;
 
 import java.util.Collections;
 import java.util.List;
@@ -10,40 +9,40 @@ import java.util.stream.Collectors;
 
 public class UserMapper {
 
-    public static User mapTo(UserDTO userDTO) {
+    public static Customer mapTo(UserDTO userDTO) {
         if (userDTO == null) {
             return null;
         }
 
-        User user = new User();
-        user.setEmail(userDTO.getEmail());
-        user.setPassword(userDTO.getPassword());
-        user.setFirstName(userDTO.getFirstName());
-        user.setLastName(userDTO.getLastName());
+        Customer customer = new Customer();
+        customer.setEmail(userDTO.getEmail());
+        customer.setPassword(userDTO.getPassword());
+        customer.setFirstName(userDTO.getFirstName());
+        customer.setLastName(userDTO.getLastName());
 
-        return user;
+        return customer;
     }
 
 
-    public static UserDTO mapTo(User user) {
-        if (user == null) {
+    public static UserDTO mapTo(Customer customer) {
+        if (customer == null) {
             return null;
         }
 
         return new UserDTO(
-            user.getFirstName(),
-            user.getLastName(),
-            user.getEmail(),
-            user.getPassword()
+            customer.getFirstName(),
+            customer.getLastName(),
+            customer.getEmail(),
+            customer.getPassword()
         );
     }
 
-    public static List<UserDTO> mapTo(List<User> users) {
-        if (users.isEmpty()) {
+    public static List<UserDTO> mapTo(List<Customer> customers) {
+        if (customers.isEmpty()) {
             return Collections.EMPTY_LIST;
         }
 
-        return users.stream()
+        return customers.stream()
             .map(user -> mapTo(user))
             .filter(user -> user != null)
             .collect(Collectors.toList());

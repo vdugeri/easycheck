@@ -3,7 +3,7 @@ package com.paysoft.easycheck.controllers;
 import com.paysoft.easycheck.utils.PaginatedResource;
 import com.paysoft.easycheck.dtos.UserDTO;
 import com.paysoft.easycheck.mappers.UserMapper;
-import com.paysoft.easycheck.models.User;
+import com.paysoft.easycheck.models.Customer;
 import com.paysoft.easycheck.services.UserService;
 import com.paysoft.easycheck.dtos.NotFound;
 import javax.ejb.Stateless;
@@ -39,18 +39,18 @@ public class UserController {
 
     @POST
     public Response store(UserDTO user) {
-        User createdUser = userService.createUser(user);
+        Customer createdCustomer = userService.createUser(user);
 
         return Response
                 .status(Response.Status.CREATED)
-                .entity(UserMapper.mapTo(createdUser))
+                .entity(UserMapper.mapTo(createdCustomer))
                 .build();
     }
 
     @GET
     @Path("{id}")
     public Response find(@PathParam("id") Long ID) {
-        Optional<User> user = userService.findOne(ID);
+        Optional<Customer> user = userService.findOne(ID);
 
         if (user.isPresent()) {
             return Response.ok().entity(UserMapper.mapTo(user.get())).build();
@@ -58,24 +58,24 @@ public class UserController {
 
         return Response
                 .status(Response.Status.NOT_FOUND)
-                .entity(new NotFound("User not found"))
+                .entity(new NotFound("Customer not found"))
                 .build();
     }
 
     @PUT
     @Path("{id}")
     public Response update(@PathParam("id") Long ID, UserDTO user) {
-        Optional<User> userOptional = userService.findOne(ID);
+        Optional<Customer> userOptional = userService.findOne(ID);
 
         if (userOptional.isPresent()) {
-            User updatedUser = userService.update(user);
+            Customer updatedCustomer = userService.update(user);
 
-            return Response.ok().entity(UserMapper.mapTo(updatedUser)).build();
+            return Response.ok().entity(UserMapper.mapTo(updatedCustomer)).build();
         }
 
         return Response
                 .status(Response.Status.NOT_FOUND)
-                .entity(new NotFound("User not found"))
+                .entity(new NotFound("Customer not found"))
                 .build();
     }
 

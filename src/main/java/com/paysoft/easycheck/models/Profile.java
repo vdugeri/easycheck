@@ -18,7 +18,7 @@ public class Profile implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private Customer customer;
 
     public Long getID() {
         return ID;
@@ -36,12 +36,12 @@ public class Profile implements Serializable {
         isActive = active;
     }
 
-    public User getUser() {
-        return user;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @Override
@@ -51,12 +51,12 @@ public class Profile implements Serializable {
         Profile profile = (Profile) o;
         return isActive() == profile.isActive() &&
             Objects.equals(getID(), profile.getID()) &&
-            Objects.equals(getUser(), profile.getUser());
+            Objects.equals(getCustomer(), profile.getCustomer());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getID(), isActive(), getUser());
+        return Objects.hash(getID(), isActive(), getCustomer());
     }
 
     @Override
@@ -64,7 +64,7 @@ public class Profile implements Serializable {
         return "Profile{" +
             "ID=" + ID +
             ", isActive=" + isActive +
-            ", user=" + user +
+            ", customer=" + customer +
             '}';
     }
 }

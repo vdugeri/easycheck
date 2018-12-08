@@ -1,9 +1,9 @@
 package com.paysoft.easycheck.services;
 
+import com.paysoft.easycheck.models.Customer;
 import com.paysoft.easycheck.utils.PaginatedResource;
 import com.paysoft.easycheck.dtos.UserDTO;
 import com.paysoft.easycheck.mappers.UserMapper;
-import com.paysoft.easycheck.models.User;
 import com.paysoft.easycheck.repositories.UserRepository;
 import com.paysoft.easycheck.utils.PaginationMetadata;
 import com.paysoft.easycheck.utils.PasswordHash;
@@ -30,7 +30,7 @@ public class UserService {
      */
     public PaginatedResource<UserDTO> findAll(Integer limit, Integer offset) {
         int total = userRepository.count();
-        List<User> users = userRepository.findWithLimitAndOffset(limit, offset);
+        List<Customer> customers = userRepository.findWithLimitAndOffset(limit, offset);
 
         int pages = (int) Math.ceil(total / limit) + 1;
         int currPage = (int) Math.floor(offset / limit) + 1;
@@ -43,7 +43,7 @@ public class UserService {
 
         PaginatedResource<UserDTO> paginatedUsers = new PaginatedResource<>();
         paginatedUsers.setMeta(metadata);
-        paginatedUsers.setData(UserMapper.mapTo(users));
+        paginatedUsers.setData(UserMapper.mapTo(customers));
 
 
         return paginatedUsers;
@@ -56,7 +56,7 @@ public class UserService {
      *
      * @return the created user
      */
-    public User createUser(UserDTO user) {
+    public Customer createUser(UserDTO user) {
         user.setPassword(new PasswordHash().hash(user.getPassword().toCharArray()));
         return userRepository.create(UserMapper.mapTo(user));
     }
@@ -66,19 +66,19 @@ public class UserService {
      *
      * @param ID Long
      *
-     * @return Optional of User
+     * @return Optional of Customer
      */
-    public Optional<User> findOne(Long ID) {
+    public Optional<Customer> findOne(Long ID) {
         return Optional.ofNullable(userRepository.find(ID));
     }
 
     /**
      * @author Verem Dugeri <verem.dugeri@gmail.com>
      *
-     * @param user User
-     * @return found User
+     * @param user Customer
+     * @return found Customer
      */
-    public User update(UserDTO user) {
+    public Customer update(UserDTO user) {
         return userRepository.edit(UserMapper.mapTo(user));
     }
 
