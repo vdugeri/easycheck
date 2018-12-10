@@ -2,6 +2,7 @@ package com.paysoft.easycheck.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,6 +16,9 @@ public class Role implements Serializable {
 
     @Column(name = "name")
     private String name;
+
+    @ManyToMany(mappedBy = "roles")
+    private List<Admin> admins;
 
     public Long getID() {
         return ID;
