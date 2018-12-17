@@ -1,7 +1,7 @@
 package com.paysoft.easycheck.controllers;
 
 import com.paysoft.easycheck.dtos.CardDTO;
-import com.paysoft.easycheck.models.Customer;
+import com.paysoft.easycheck.dtos.CustomerDTO;
 import com.paysoft.easycheck.services.CardService;
 import com.paysoft.easycheck.services.CustomerService;
 import com.paysoft.easycheck.utils.PaginatedResource;
@@ -38,7 +38,7 @@ public class CardController {
 
     @POST
     public Response store(CardDTO cardDTO) {
-        Optional<Customer> customer = customerService.findOne(cardDTO.getCustomerID());
+        Optional<CustomerDTO> customer = customerService.findOne(cardDTO.getCustomerID());
 
         if (!customer.isPresent()) {
             throw new EntityNotFoundException("Customer with id " + cardDTO.getCustomerID() + " is not found");
@@ -52,7 +52,7 @@ public class CardController {
     @GET
     @Path("{user_id}")
     public Response getUserCards(@PathParam("user_id") Long userID) {
-        Optional<Customer> user = customerService.findOne(userID);
+        Optional<CustomerDTO> user = customerService.findOne(userID);
 
         if (!user.isPresent()) {
             throw new EntityNotFoundException("Customer with id " + userID + " is not found");

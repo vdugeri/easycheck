@@ -1,19 +1,40 @@
 package com.paysoft.easycheck.dtos;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
-public class CustomerDTO {
+public class CustomerDTO implements Serializable {
 
+    @JsonProperty("id")
+    private Long ID;
+    @JsonProperty("first_name")
     private String firstName;
+    @JsonProperty("last_name")
     private String lastName;
     private String email;
     private String password;
+    private List<CardDTO> cards;
 
-    public CustomerDTO(String firstName, String lastName, String email, String password) {
+    public CustomerDTO() {
+    }
+
+    public CustomerDTO(Long ID, String firstName, String lastName, String email, String password) {
+        this.ID = ID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+    }
+
+    public Long getID() {
+        return ID;
+    }
+
+    public void setID(Long ID) {
+        this.ID = ID;
     }
 
     public String getFirstName() {
@@ -48,6 +69,14 @@ public class CustomerDTO {
         this.password = password;
     }
 
+    public List<CardDTO> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<CardDTO> cards) {
+        this.cards = cards;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -56,7 +85,8 @@ public class CustomerDTO {
         return Objects.equals(getFirstName(), customerDTO.getFirstName()) &&
                 Objects.equals(getLastName(), customerDTO.getLastName()) &&
                 Objects.equals(getEmail(), customerDTO.getEmail()) &&
-                Objects.equals(getPassword(), customerDTO.getPassword());
+                Objects.equals(getPassword(), customerDTO.getPassword()) &&
+                Objects.equals(getID(), customerDTO.getID());
     }
 
     @Override
@@ -67,6 +97,7 @@ public class CustomerDTO {
     @Override
     public String toString() {
         return "CustomerDTO{" +
+                "ID= '" + ID + '\'' +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +

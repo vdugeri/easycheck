@@ -7,6 +7,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -174,8 +175,6 @@ public abstract class AbstractRepository<T> {
 
         if (limit > 0) {
             query.setMaxResults(limit);
-        } else {
-            query.setMaxResults(50);
         }
 
         for (Map.Entry<String, Object> entry : rawParams) {
@@ -220,6 +219,34 @@ public abstract class AbstractRepository<T> {
             return (T) query.getSingleResult();
         } catch (NoResultException ex) {
             return null;
+        }
+    }
+
+    /**
+     * @author Verem Dugeri <verem.dugeri@gmail.com>
+     *
+     * @param queryName
+     * @param parameters
+     * @param limit
+     * @param offset
+     *
+     * @return List of {@link T}
+     */
+    public List<T> findWithLimitOffsetNamedQuery(String queryName, Map<String, Object> parameters, int limit, int offset) {
+        Set<Map.Entry<String, Object>> rawParams = parameters.entrySet();
+        Query query = getEntityManager().createNamedQuery(queryName);
+
+        for (Map.Entry<String, Object> entry : rawParams) {
+            query.setParameter(entry.getKey(), entry.getValue());
+        }
+
+        query.setFirstResult(offset);
+        query.setMaxResults(limit);
+
+        try {
+            return (List<T>) query.getResultList();
+        } catch ( NoResultException e) {
+            return Collections.emptyList();
         }
     }
 }

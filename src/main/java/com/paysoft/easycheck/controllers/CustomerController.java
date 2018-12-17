@@ -14,7 +14,7 @@ import javax.ws.rs.core.Response;
 import java.util.Optional;
 
 @Stateless
-@Path("/users/")
+@Path("/customers/")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class CustomerController {
@@ -39,7 +39,7 @@ public class CustomerController {
 
     @POST
     public Response store(CustomerDTO user) {
-        Customer createdCustomer = customerService.createUser(user);
+        CustomerDTO createdCustomer = customerService.createCustomer(user);
 
         return Response
                 .status(Response.Status.CREATED)
@@ -50,7 +50,7 @@ public class CustomerController {
     @GET
     @Path("{id}")
     public Response find(@PathParam("id") Long ID) {
-        Optional<Customer> user = customerService.findOne(ID);
+        Optional<CustomerDTO> user = customerService.findOne(ID);
 
         if (user.isPresent()) {
             return Response.ok().entity(CustomerMapper.mapTo(user.get())).build();
@@ -65,10 +65,10 @@ public class CustomerController {
     @PUT
     @Path("{id}")
     public Response update(@PathParam("id") Long ID, CustomerDTO user) {
-        Optional<Customer> userOptional = customerService.findOne(ID);
+        Optional<CustomerDTO> userOptional = customerService.findOne(ID);
 
         if (userOptional.isPresent()) {
-            Customer updatedCustomer = customerService.update(user);
+            CustomerDTO updatedCustomer = customerService.update(user);
 
             return Response.ok().entity(CustomerMapper.mapTo(updatedCustomer)).build();
         }

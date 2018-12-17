@@ -1,7 +1,9 @@
 package com.paysoft.easycheck.services;
 
 import com.paysoft.easycheck.dtos.CardDTO;
+import com.paysoft.easycheck.dtos.CustomerDTO;
 import com.paysoft.easycheck.mappers.CardMapper;
+import com.paysoft.easycheck.mappers.CustomerMapper;
 import com.paysoft.easycheck.models.Card;
 import com.paysoft.easycheck.models.Customer;
 import com.paysoft.easycheck.repositories.CardRepository;
@@ -64,8 +66,8 @@ public class CardService {
      *
      * @return card
      */
-    public CardDTO save(CardDTO cardDTO, Customer customer) {
-        return CardMapper.mapTo(cardRepository.create(CardMapper.mapTo(cardDTO, customer)));
+    public CardDTO save(CardDTO cardDTO, CustomerDTO customer) {
+        return CardMapper.mapTo(cardRepository.create(CardMapper.mapTo(cardDTO, CustomerMapper.mapTo(customer))));
     }
 
     /**
@@ -76,10 +78,10 @@ public class CardService {
      * @return list of {@link Card}
      */
     public List<CardDTO> getUserCards(Long userID) {
-        Optional<Customer> user = customerService.findOne(userID);
+        Optional<CustomerDTO> customer = customerService.findOne(userID);
 
-        if(user.isPresent()) {
-            return CardMapper.mapTo(user.get().getCards());
+        if(customer.isPresent()) {
+            return customer.get().getCards();
         }
 
         return Collections.EMPTY_LIST;
