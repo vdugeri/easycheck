@@ -23,6 +23,9 @@ public class Merchant  implements Serializable {
     @Column(name = "verified")
     private boolean verified;
 
+    @OneToMany(mappedBy = "merchant")
+    private List<Admin> admins;
+
     public Long getID() {
         return ID;
     }
@@ -53,6 +56,14 @@ public class Merchant  implements Serializable {
 
     public void setVerified(boolean verified) {
         this.verified = verified;
+    }
+
+    public List<Admin> getAdmins() {
+        return admins;
+    }
+
+    public void setAdmins(List<Admin> admins) {
+        this.admins = admins;
     }
 
     @Override
