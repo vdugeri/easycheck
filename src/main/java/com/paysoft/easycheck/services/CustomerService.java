@@ -52,13 +52,13 @@ public class CustomerService {
     /**
      * @author Verem Dugeri <verem.dugeri@gmail.com>
      *
-     * @param user new user
+     * @param customer new customer
      *
-     * @return the created user
+     * @return the created {@link Customer}
      */
-    public Customer createUser(CustomerDTO user) {
-        user.setPassword(new PasswordHash().hash(user.getPassword().toCharArray()));
-        return customerRepository.create(CustomerMapper.mapTo(user));
+    public CustomerDTO createCustomer(CustomerDTO customer) {
+        customer.setPassword(new PasswordHash().hash(customer.getPassword().toCharArray()));
+        return CustomerMapper.mapTo(customerRepository.create(CustomerMapper.mapTo(customer)));
     }
 
     /**
@@ -68,8 +68,8 @@ public class CustomerService {
      *
      * @return Optional of Customer
      */
-    public Optional<Customer> findOne(Long ID) {
-        return Optional.ofNullable(customerRepository.find(ID));
+    public Optional<CustomerDTO> findOne(Long ID) {
+        return Optional.ofNullable(CustomerMapper.mapTo(customerRepository.find(ID)));
     }
 
     /**
@@ -78,8 +78,8 @@ public class CustomerService {
      * @param user Customer
      * @return found Customer
      */
-    public Customer update(CustomerDTO user) {
-        return customerRepository.edit(CustomerMapper.mapTo(user));
+    public CustomerDTO update(CustomerDTO user) {
+        return CustomerMapper.mapTo(customerRepository.edit(CustomerMapper.mapTo(user)));
     }
 
     /**

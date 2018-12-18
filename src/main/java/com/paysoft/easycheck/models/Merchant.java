@@ -26,6 +26,9 @@ public class Merchant  implements Serializable {
     @OneToMany(mappedBy = "merchant")
     private List<Admin> admins;
 
+    @OneToMany(mappedBy = "merchant", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    private List<Transaction> transactions;
+
     public Long getID() {
         return ID;
     }
@@ -64,6 +67,14 @@ public class Merchant  implements Serializable {
 
     public void setAdmins(List<Admin> admins) {
         this.admins = admins;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     @Override

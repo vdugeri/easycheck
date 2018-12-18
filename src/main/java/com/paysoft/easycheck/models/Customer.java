@@ -33,6 +33,9 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private List<Card> cards;
 
+    @OneToMany(mappedBy = "customer", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    private List<Transaction> transactions;
+
 
     public Long getID() {
         return ID;
@@ -80,6 +83,14 @@ public class Customer {
 
     public void setCards(List<Card> cards) {
         this.cards = cards;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     @Override

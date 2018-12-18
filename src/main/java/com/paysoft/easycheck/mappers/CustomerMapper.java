@@ -19,6 +19,7 @@ public class CustomerMapper {
         customer.setPassword(customerDTO.getPassword());
         customer.setFirstName(customerDTO.getFirstName());
         customer.setLastName(customerDTO.getLastName());
+        customer.setID(customerDTO.getID());
 
         return customer;
     }
@@ -30,6 +31,7 @@ public class CustomerMapper {
         }
 
         return new CustomerDTO(
+            customer.getID(),
             customer.getFirstName(),
             customer.getLastName(),
             customer.getEmail(),
